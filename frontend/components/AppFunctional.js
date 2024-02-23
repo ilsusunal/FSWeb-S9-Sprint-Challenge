@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // önerilen başlangıç stateleri
 const initialMessage = ''
@@ -9,6 +9,7 @@ const initialIndex = 4 //  "B" nin bulunduğu indexi
 export default function AppFunctional(props) {
   // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
   // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
+  const [index, setIndex] = useState(initialIndex);
 
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
@@ -53,8 +54,8 @@ export default function AppFunctional(props) {
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+              {idx === index ? 'B' : null}
             </div>
           ))
         }
