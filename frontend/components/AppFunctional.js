@@ -15,18 +15,24 @@ export default function AppFunctional(props) {
 
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
-    // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.   
+    // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.  
+    const x = (index % 3) + 1;
+    const y =  Math.ceil(index % 3);
+    return {x,y};
   }
 
   function getXYMesaj() {
     // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
     // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
     // tamamen oluşturulmuş stringi döndürür.
+    const {x, y} = getXY();
+    return `Koordinatlar (${x}, ${y})`;
   }
 
   function reset() {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
-    setIndex(initialIndex)
+    setIndex(initialIndex);
+    setSteps(initialSteps);
   }
 
   function sonrakiIndex(yon) {
@@ -41,12 +47,13 @@ export default function AppFunctional(props) {
     }
     const yeniIndex = index + yonDegerleri[yon];
     setIndex(yeniIndex);
+    setSteps(steps + 1);
   }
 
   function ilerle(evt) {
     // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
     // ve buna göre state i değiştirir.
-    setIndex(index+1);
+
   }
 
   function onChange(evt) {
@@ -60,8 +67,8 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Koordinatlar (2, 2)</h3>
-        <h3 id="steps">0 kere ilerlediniz</h3>
+        <h3 id="coordinates">{getXYMesaj()}</h3>
+        <h3 id="steps">{steps} kere ilerlediniz</h3>
       </div>
       <div id="grid">
         {
