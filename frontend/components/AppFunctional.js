@@ -11,13 +11,15 @@ export default function AppFunctional(props) {
   // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
   const [index, setIndex] = useState(initialIndex);
   const [steps, setSteps] = useState(initialSteps);
-
+  const [message, setMessage] = useState(initialMessage);
 
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
     // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.  
-    const x = (index % 3) + 1;
-    const y =  Math.ceil(index % 3);
+    const uceBolumdenKalan = index % 3;
+    const uceBolum = index / 3;
+    const x = uceBolumdenKalan + 1;
+    const y = Math.floor(uceBolum) + 1;
     return {x,y};
   }
 
