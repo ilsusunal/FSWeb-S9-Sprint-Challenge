@@ -12,6 +12,7 @@ export default function AppFunctional(props) {
   const [index, setIndex] = useState(initialIndex);
   const [steps, setSteps] = useState(initialSteps);
   const [message, setMessage] = useState(initialMessage);
+  const [email, setEmail] = useState(initialEmail);
 
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
@@ -35,27 +36,47 @@ export default function AppFunctional(props) {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
     setIndex(initialIndex);
     setSteps(initialSteps);
+    setMessage(initialMessage);
+    setEmail(initialEmail);
   }
 
   function sonrakiIndex(yon) {
     // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
     // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
     // şu anki indeksi değiştirmemeli.
+    const {x, y} = getXY();
     const yonDegerleri = {
       sag: +1,
       sol: -1,
       asagi: +3,
       yukari: -3,
     }
-    const yeniIndex = index + yonDegerleri[yon];
-    setIndex(yeniIndex);
-    setSteps(steps + 1);
+    const sonrakiIndexDegeri = index + yonDegerleri[yon];
+   /*  if (y === 1 && yon === "yukari") {
+      return index;
+    } else if(y === 3 && yon === "asagi") {
+      return index;
+    } else if(sonrakiIndexDegeri > 8 || sonrakiIndexDegeri < 0) {
+      return index;
+    } else {
+      return sonrakiIndexDegeri;
+    } */
+
+    if (x = 3 && yon === "sag") {
+      return index;
+    } else {
+      return sonrakiIndexDegeri;
+    }
+    
   }
 
   function ilerle(evt) {
     // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
     // ve buna göre state i değiştirir.
-
+    const yeniIndex = sonrakiIndex(evt);
+   
+    setIndex(yeniIndex);
+    setSteps(steps + 1);
   }
 
   function onChange(evt) {
@@ -85,10 +106,10 @@ export default function AppFunctional(props) {
         <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button id="left" onClick={() => sonrakiIndex("sol")}>SOL</button>
-        <button id="up" onClick={() => sonrakiIndex("yukari")} >YUKARI</button>
-        <button id="right" onClick={() => sonrakiIndex("sag")}>SAĞ</button>
-        <button id="down" onClick={() => sonrakiIndex("asagi")}>AŞAĞI</button>
+        <button id="left" onClick={() => ilerle("sol")}>SOL</button>
+        <button id="up" onClick={() => ilerle("yukari")} >YUKARI</button>
+        <button id="right" onClick={() => ilerle("sag")}>SAĞ</button>
+        <button id="down" onClick={() => ilerle("asagi")}>AŞAĞI</button>
         <button id="reset" onClick={reset}>reset</button>
       </div>
       <form>
