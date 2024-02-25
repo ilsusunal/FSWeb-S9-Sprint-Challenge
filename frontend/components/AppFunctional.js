@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 // önerilen başlangıç stateleri
@@ -78,16 +79,29 @@ export default function AppFunctional(props) {
     // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
     // ve buna göre state i değiştirir.
     const yeniIndex = sonrakiIndex(evt);
-   
     setIndex(yeniIndex);
   }
 
   function onChange(evt) {
     // inputun değerini güncellemek için bunu kullanabilirsiniz
+    setEmail(evt.target.value);
   }
 
   function onSubmit(evt) {
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
+    evt.preventDefault();
+    const gidenData = {
+      x:getXY().x,
+      y:getXY().y,
+      steps: steps,
+      email: email,
+    }
+    axios.post("http://localhost:9000/api/result", gidenData)
+    .then(r => {
+      console.log("DATA GİDİYOR:", r)
+      setMessage(r.data.message)
+    })
+    .catch(e => console.log("Unprocessable Entity", e));
   }
 
   return (
@@ -115,8 +129,8 @@ export default function AppFunctional(props) {
         <button id="down" onClick={() => ilerle("asagi")}>AŞAĞI</button>
         <button id="reset" onClick={reset}>reset</button>
       </div>
-      <form>
-        <input id="email" type="email" placeholder="email girin"></input>
+      <form onSubmit={onSubmit}>
+        <input id="email" type="email" placeholder="email girin" onChange={onChange} value={email}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
