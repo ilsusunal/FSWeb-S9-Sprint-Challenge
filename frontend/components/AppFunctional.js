@@ -54,19 +54,15 @@ export default function AppFunctional(props) {
     const sonrakiIndexDegeri = index + yonDegerleri[yon];
     if (yon === "sol" && index % 3 === 0) {
       setMessage("Sola gidemezsiniz")
-      setSteps(prevSteps => prevSteps)
       return index;
     } else if (yon === "sag" && index % 3 === 2) {
       setMessage("Sağa gidemezsiniz")
-      setSteps(prevSteps => prevSteps)
       return index;
     } else if (yon === "yukari" && index < 3) {
       setMessage("Yukarıya gidemezsiniz")
-      setSteps(prevSteps => prevSteps)
       return index;
     } else if (yon === "asagi" && index >= 6) {
       setMessage("Aşağıya gidemezsiniz")
-      setSteps(prevSteps => prevSteps)
       return index;
     } else {
       setMessage(initialMessage);
@@ -103,7 +99,7 @@ export default function AppFunctional(props) {
       steps: steps,
       email: email,
     }
-    //Ouch: email is required
+
     axios.post("http://localhost:9000/api/result", gidenData)
     .then(r => {
       console.log("DATA GİDİYOR:", r)
