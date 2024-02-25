@@ -91,16 +91,19 @@ export default function AppFunctional(props) {
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
     evt.preventDefault();
     const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-    if(!validEmail.test(email)) {
+    if(!email.trim()) {
+      return setMessage("Ouch: email is required");
+    } else if (!validEmail.test(email)) {
       return setMessage("Ouch: email must be a valid email");
-    } 
+    }
+    
     const gidenData = {
       x:getXY().x,
       y:getXY().y,
       steps: steps,
       email: email,
     }
-    //Ouch: email must be a valid email
+    //Ouch: email is required
     axios.post("http://localhost:9000/api/result", gidenData)
     .then(r => {
       console.log("DATA GİDİYOR:", r)
