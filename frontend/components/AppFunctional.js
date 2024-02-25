@@ -90,16 +90,22 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
     evt.preventDefault();
+    const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    if(!validEmail.test(email)) {
+      return setMessage("Ouch: email must be a valid email");
+    } 
     const gidenData = {
       x:getXY().x,
       y:getXY().y,
       steps: steps,
       email: email,
     }
+    //Ouch: email must be a valid email
     axios.post("http://localhost:9000/api/result", gidenData)
     .then(r => {
       console.log("DATA GİDİYOR:", r)
       setMessage(r.data.message)
+      setEmail(initialEmail)
     })
     .catch(e => console.log("Unprocessable Entity", e));
   }
