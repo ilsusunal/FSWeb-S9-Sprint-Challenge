@@ -52,14 +52,19 @@ export default function AppFunctional(props) {
     }
     const sonrakiIndexDegeri = index + yonDegerleri[yon];
     if (yon === "sol" && index % 3 === 0) {
+      setMessage("Sola gidemezsiniz")
       return index;
     } else if (yon === "sag" && index % 3 === 2) {
+      setMessage("Sağa gidemezsiniz")
       return index;
     } else if (yon === "yukari" && index < 3) {
+      setMessage("Yukarıya gidemezsiniz")
       return index;
     } else if (yon === "asagi" && index >= 6) {
+      setMessage("Aşağıya gidemezsiniz")
       return index;
     } else {
+      setMessage(initialMessage);
       return sonrakiIndexDegeri;
     }
    
@@ -98,7 +103,7 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={() => ilerle("sol")}>SOL</button>
