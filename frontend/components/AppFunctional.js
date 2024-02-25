@@ -44,7 +44,6 @@ export default function AppFunctional(props) {
     // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
     // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
     // şu anki indeksi değiştirmemeli.
-    const {x, y} = getXY();
     const yonDegerleri = {
       sag: +1,
       sol: -1,
@@ -52,22 +51,18 @@ export default function AppFunctional(props) {
       yukari: -3,
     }
     const sonrakiIndexDegeri = index + yonDegerleri[yon];
-   /*  if (y === 1 && yon === "yukari") {
+    if (yon === "sol" && index % 3 === 0) {
       return index;
-    } else if(y === 3 && yon === "asagi") {
+    } else if (yon === "sag" && index % 3 === 2) {
       return index;
-    } else if(sonrakiIndexDegeri > 8 || sonrakiIndexDegeri < 0) {
+    } else if (yon === "yukari" && index < 3) {
       return index;
-    } else {
-      return sonrakiIndexDegeri;
-    } */
-
-    if (x = 3 && yon === "sag") {
+    } else if (yon === "asagi" && index >= 6) {
       return index;
     } else {
       return sonrakiIndexDegeri;
     }
-    
+   
   }
 
   function ilerle(evt) {
